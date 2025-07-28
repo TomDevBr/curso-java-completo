@@ -19,6 +19,22 @@ public class Main {
         System.out.println("Digite a quantidade");
         product.quantity = scanner.nextInt();
 
-        System.out.println(product.name + ", " +  product.price + ", " + product.quantity);
+        System.out.println(product);
+        System.out.println();
+
+        System.out.println("Digite a quantidade de produto a ser adicionada:");
+        int quantity = scanner.nextInt();
+        product.addProducts(quantity);
+
+        System.out.println(product);
+        System.out.println();
+
+        System.out.println("Digite a quantidade de produto a ser removida:");
+        int quantityRemoved = scanner.nextInt();
+        product.removeProducts(quantityRemoved);
+
+        System.out.println(product);
+        System.out.println();
+
     }
 }
