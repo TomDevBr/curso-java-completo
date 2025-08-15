@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.class73.DolarToReais;
-import org.example.exercises.class82.CadastroBanco;
+import org.example.exercises.class82.Account;
 import org.example.exercises.class82.DepositoOuSaque;
 
 import java.text.NumberFormat;
@@ -12,20 +12,20 @@ public class Main {
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
         Scanner scanner = new Scanner(System.in);
-        CadastroBanco cadastroBanco = new CadastroBanco();
+        Account account;
+
         DepositoOuSaque depositoOuSaque = new DepositoOuSaque();
 
         System.out.println("Digite o numero da conta:");
         int numeroDaConta = scanner.nextInt();
         scanner.nextLine();
-        cadastroBanco.setNumeroDaConta(numeroDaConta);
 
         System.out.println("Digite o nome do titular:");
-        String titularDaConta = scanner.nextLine();
-        cadastroBanco.setNomeDoTitular(titularDaConta);
+        String holder = scanner.nextLine();
 
         String temDeposito;
         boolean temDepositoBool;
+        double depositoInicial;
 
         do {
             System.out.println("Deseja fazer um depósito inicial (S/N)?:");
@@ -44,16 +44,15 @@ public class Main {
 
         if(temDepositoBool) {
             System.out.println("Digite o valor do deposio '0.00'");
-            double depositoInicial = scanner.nextDouble();
-            cadastroBanco.temDepositoInicial(depositoInicial);
+            depositoInicial = scanner.nextDouble();
+            account = new Account(numeroDaConta, holder, depositoInicial );
         } else {
-            cadastroBanco.temDepositoInicial();
+            account = new Account(numeroDaConta, holder);
         };
-
+        System.out.println("");
         System.out.println("Dados da conta:");
-        System.out.println("conta: " + cadastroBanco.getNumeroDaConta()
-                                     + " Titular: " + cadastroBanco.getNomeDoTitular()
-                                     + " Balanço: " + cadastroBanco.getDepositoInicial());
+        System.out.println(account);
+        scanner.nextLine();
 
         String novoDeposito;
         boolean novoDepositoBool;
@@ -75,12 +74,42 @@ public class Main {
         if(novoDepositoBool) {
             System.out.println("Digite o valor do deposio '0.00'");
             double deposito = scanner.nextDouble();
-            double valorAtual = depositoOuSaque.deposito(deposito, cadastroBanco.getDepositoInicial());
+            account.deposit(deposito);
+            scanner.nextLine();
 
             System.out.println("Dados da conta:");
-            System.out.println("conta: " + cadastroBanco.getNumeroDaConta()
-                    + " Titular: " + cadastroBanco.getNomeDoTitular()
-                    + " Balanço: " + valorAtual);
+            System.out.println(account);
+        } else {
+            return;
+        };
+
+        String saque;
+        boolean saqueBool;
+
+        do {
+            System.out.println("Deseja fazer um saque(S/N)?:");
+            saque = scanner.nextLine().trim(); // remove espaços extras
+
+            if (saque.equalsIgnoreCase("S")) {
+                saqueBool = true;
+                break; // sai do loop
+            } else if (saque.equalsIgnoreCase("N")) {
+                saqueBool = false;
+                break; // sai do loop
+            } else {
+                System.out.println("Entrada inválida! Digite apenas 'S' ou 'N'.");
+            }
+        } while (true);
+
+
+        if(saqueBool) {
+            System.out.println("Digite o valor do saque '0.00'");
+            double saqueValor = scanner.nextDouble();
+            account.withDraw(saqueValor);
+            scanner.nextLine();
+
+            System.out.println("Dados da conta:");
+            System.out.println(account);
         } else {
             return;
         };

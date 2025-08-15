@@ -14,18 +14,22 @@ public class Account {
     public Account(int accountNumber, String holder, Double initialDeposit) {
         this.accountNumber = accountNumber;
         this.holder = holder;
-        deposit(initialDeposit);
+        this.balance = (initialDeposit);
     }
 
     public int getAccountNumber() {
         return accountNumber;
     }
 
-    public String getNomeDoTitular() {
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getHolder() {
         return holder;
     }
 
-    public void setNomeDoTitular(String holder) {
+    public void setHolder(String holder) {
         this.holder = holder;
     }
 
@@ -39,6 +43,15 @@ public class Account {
 
     public void withDraw(double value){
         this.balance -= value + 5.0;
+    }
+
+    public String toString() {
+        return "Conta:"
+                + accountNumber
+                + ", Titular:"
+                + holder
+                + ", balanço: R$"
+                +  String.format("%.2f", balance);
     }
 
 
