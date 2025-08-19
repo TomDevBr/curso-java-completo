@@ -4,6 +4,7 @@ import org.example.class73.DolarToReais;
 import org.example.exercises.class82.Account;
 import org.example.exercises.class82.DepositoOuSaque;
 
+
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Scanner;
@@ -13,8 +14,6 @@ public class Main {
         Locale.setDefault(Locale.US);
         Scanner scanner = new Scanner(System.in);
         Account account;
-
-        DepositoOuSaque depositoOuSaque = new DepositoOuSaque();
 
         System.out.println("Digite o numero da conta:");
         int numeroDaConta = scanner.nextInt();
