@@ -1,4 +1,4 @@
-package org.example.class73;
+package org.example.exercises.class73;
 
 public class DolarToReais {
     public static double currentDolarPrice;

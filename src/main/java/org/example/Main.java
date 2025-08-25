@@ -1,11 +1,8 @@
 package org.example;
 
-import org.example.class73.DolarToReais;
-import org.example.exercises.class82.Account;
-import org.example.exercises.class82.DepositoOuSaque;
+import org.example.exercises.class93.Pessoa;
 
-
-import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -13,105 +10,53 @@ public class Main {
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
         Scanner scanner = new Scanner(System.in);
-        Account account;
 
-        System.out.println("Digite o numero da conta:");
-        int numeroDaConta = scanner.nextInt();
-        scanner.nextLine();
+        int n;
 
-        System.out.println("Digite o nome do titular:");
-        String holder = scanner.nextLine();
+        System.out.println("Quantas pessoa serão analisadas?: ");
+        n = scanner.nextInt();
 
-        String temDeposito;
-        boolean temDepositoBool;
-        double depositoInicial;
 
-        do {
-            System.out.println("Deseja fazer um depósito inicial (S/N)?:");
-            temDeposito = scanner.nextLine().trim(); // remove espaços extras
+        Pessoa[] pessoas = new Pessoa[n];
 
-            if (temDeposito.equalsIgnoreCase("S")) {
-                temDepositoBool = true;
-                break; // sai do loop
-            } else if (temDeposito.equalsIgnoreCase("N")) {
-                temDepositoBool = false;
-                break; // sai do loop
-            } else {
-                System.out.println("Entrada inválida! Digite apenas 'S' ou 'N'.");
-            }
-        } while (true);
+        for(int i = 0; i<pessoas.length; i++) {
+            System.out.println("Digite o nome, idade e altura da pessoa" + (1 + i));
+            String name = scanner.next();
 
-        if(temDepositoBool) {
-            System.out.println("Digite o valor do deposio '0.00'");
-            depositoInicial = scanner.nextDouble();
-            account = new Account(numeroDaConta, holder, depositoInicial );
-        } else {
-            account = new Account(numeroDaConta, holder);
-        };
-        System.out.println("");
-        System.out.println("Dados da conta:");
-        System.out.println(account);
-        scanner.nextLine();
+            int idade = scanner.nextInt();
 
-        String novoDeposito;
-        boolean novoDepositoBool;
-        do {
-            System.out.println("Deseja fazer um depósito (S/N)?:");
-            novoDeposito = scanner.nextLine().trim(); // remove espaços extras
-
-            if (novoDeposito.equalsIgnoreCase("S")) {
-                novoDepositoBool = true;
-                break; // sai do loop
-            } else if (novoDeposito.equalsIgnoreCase("N")) {
-                novoDepositoBool = false;
-                break; // sai do loop
-            } else {
-                System.out.println("Entrada inválida! Digite apenas 'S' ou 'N'.");
-            }
-        } while (true);
-
-        if(novoDepositoBool) {
-            System.out.println("Digite o valor do deposio '0.00'");
-            double deposito = scanner.nextDouble();
-            account.deposit(deposito);
+            Double altura = scanner.nextDouble();
             scanner.nextLine();
 
-            System.out.println("Dados da conta:");
-            System.out.println(account);
-        } else {
-            return;
-        };
+            pessoas[i] = new Pessoa(name, idade, altura);
+        }
+        System.out.println("Nome das pessoas");
+        for(Pessoa pessoa : pessoas) {
+            System.out.println(pessoa.getNome());
+        }
 
-        String saque;
-        boolean saqueBool;
+        System.out.println("Media da altura das pessoas");
+        double sum = 0.0;
+        for(Pessoa pessoa : pessoas){
+            Double altura = pessoa.getAltura();
 
-        do {
-            System.out.println("Deseja fazer um saque(S/N)?:");
-            saque = scanner.nextLine().trim(); // remove espaços extras
+            sum += altura;
 
-            if (saque.equalsIgnoreCase("S")) {
-                saqueBool = true;
-                break; // sai do loop
-            } else if (saque.equalsIgnoreCase("N")) {
-                saqueBool = false;
-                break; // sai do loop
-            } else {
-                System.out.println("Entrada inválida! Digite apenas 'S' ou 'N'.");
+        }
+        Double avg = sum / pessoas.length;
+
+        System.out.println(avg);
+
+        System.out.println("Pessoas com menos de 30 anos:");
+        for(Pessoa pessoa : pessoas){
+            int idadePessoa = pessoa.getIdade();
+
+            if (idadePessoa < 30){
+                String nomePessoa = pessoa.getNome();
+                System.out.println(nomePessoa);
             }
-        } while (true);
 
-
-        if(saqueBool) {
-            System.out.println("Digite o valor do saque '0.00'");
-            double saqueValor = scanner.nextDouble();
-            account.withDraw(saqueValor);
-            scanner.nextLine();
-
-            System.out.println("Dados da conta:");
-            System.out.println(account);
-        } else {
-            return;
-        };
+        }
 
 
 
